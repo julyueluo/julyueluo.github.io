@@ -49,6 +49,9 @@ jobs:
 
     - name: List dist content
       run: ls dist
+      
+    - name: List dist/assets content
+      run: ls dist/assets
   deploy:
   
     needs: build
