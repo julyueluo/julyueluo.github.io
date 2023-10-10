@@ -13,6 +13,7 @@ dist
 dist-ssr
 coverage
 *.local
+github-action.yaml
 
 /cypress/videos/
 /cypress/screenshots/
