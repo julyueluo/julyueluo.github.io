@@ -82,8 +82,8 @@ jobs:
           BRANCH: gh-pages
           FOLDER: dist
 
-      - uses: rokroskar/workflow-run-cleanup-action@v0.3.0
-        if: always()
+      # - uses: rokroskar/workflow-run-cleanup-action@v0.3.0
+      #   if: always()
 
       # ...其他流程步骤
 
