@@ -24,7 +24,7 @@ jobs:
           mkdir public
           mv build/* public/
         env:
-          SOURCE_DIR: 'dist' # 替换为您的源目录名称
+          SOURCE_DIR: 'arya-homes' # 替换为您的源目录名称
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
