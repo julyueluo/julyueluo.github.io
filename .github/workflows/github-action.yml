@@ -49,7 +49,7 @@ jobs:
 
     - name: List dist content
       run: ls dist
-      
+
     - name: List dist/assets content
       run: ls dist/assets
   deploy:
@@ -71,6 +71,9 @@ jobs:
 
       - name: List dist content
         run: ls ${{ github.workspace }}/dist 
+
+      - name: List dist/assets content
+        run: ls ${{ github.workspace }}/dist/assets
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
