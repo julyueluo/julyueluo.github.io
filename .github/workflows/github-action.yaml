@@ -22,7 +22,7 @@ jobs:
           npm install  # 安装项目依赖
           npm run build  # 构建静态文件
           mkdir build_output
-          mv build/* build_output/
+          mv dist/* build_output/
         env:
           SOURCE_DIR: 'dist' # 替换为您的源目录名称
 
