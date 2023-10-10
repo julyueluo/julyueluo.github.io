@@ -1,4 +1,4 @@
-name: CI
+name: CI Deploy to GitHub Pages
 
 on: 
   push:
@@ -17,10 +17,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Set up Node.js
-      uses: actions/setup-node@v1
+     - name: Cache node modules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
       with:
-        node-version: '16.19.1'
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
         
     - name: Install Dependencies
       run: npm install
@@ -38,7 +48,21 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache node modules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
     
+    - name: Build
+      run: npm run build
+
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
