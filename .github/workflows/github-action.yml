@@ -81,3 +81,30 @@ jobs:
           github_token: ${{ secrets.ACCESS_TOKEN_ACTIONS }}
           BRANCH: gh-pages
           FOLDER: dist
+
+      - uses: rokroskar/workflow-run-cleanup-action@v0.3.0
+        if: always()
+
+      # ...其他流程步骤
+
+      # - name: Deploy to GitHub Pages
+      # uses: peaceiris/actions-gh-pages@v3
+      # ...部署所需的参数配置 
+
+      - name: Post Deploy Cleanup
+        if: always()
+        run: |
+          # 删除临时目录
+          rm -rf temp
+
+          # 清理 git 配置 
+          git config --global --unset user.name
+          git config --global --unset user.email
+          git config --global --remove-section http.https://github.com/.extraheader
+
+          # 清理 git submodule 
+          git submodule foreach --recursive git config --local --unset-all 'core.sshCommand'
+          git submodule foreach --recursive git config --local --unset-all 'http.https://github.com/.extraheader'
+
+          # 其他清理工作...
+          # 如删除临时文件、还原环境变量等
