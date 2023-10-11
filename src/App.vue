@@ -4,7 +4,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/qq.jpg" width="125" height="125" />
+    <img alt="Vue logo" class="logo" src="./assets/svg/404.svg" width="125" height="125" />
     <div class="wrapper">
       <HelloWorld msg="你好" />
     </div>
