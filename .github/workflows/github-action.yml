@@ -1,6 +1,6 @@
 name: CI Deploy to GitHub Pages
 
-on: 
+on:
   push:
     branches:
       - master
@@ -9,72 +9,67 @@ on:
       - master
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Cache node modules
-      uses: actions/cache@v3.3.2
-      env:
-        cache-name: cache-node-modules
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16.x'
-        
-    - name: Install Dependencies
-      run: npm install
-    
-    # - name: Lint
-    #   run: npm run lint
-      
-    - name: Build
-      run: npm run build
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: dist-files
-        path: dist
-
-    - name: List dist content
-      run: ls dist
-
-    - name: List dist/assets content
-      run: ls dist/assets
-
-
-  deploy:
-  
-    needs: build
-    
-    runs-on: ubuntu-latest
-    
-    steps:
-    
       - uses: actions/checkout@v4
 
-      - name: cd github.workspace 
-        run: cd ${{ github.workspace }} 
+      - name: Cache node modules
+        uses: actions/cache@v3.3.2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
 
-      - name: Download artifact
-        uses: actions/download-artifact@v3
-        with: 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+
+      - name: Install Dependencies
+        run: npm install
+
+      # - name: Lint
+      #   run: npm run lint
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
           name: dist-files
           path: dist
 
       - name: List dist content
-        run: ls ${{ github.workspace }}/dist 
+        run: ls dist
+
+      - name: List dist/assets content
+        run: ls dist/assets
+
+  deploy:
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: cd github.workspace
+        run: cd ${{ github.workspace }}
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files
+          path: dist
+
+      - name: List dist content
+        run: ls ${{ github.workspace }}/dist
 
       - name: List dist/assets content
         run: ls ${{ github.workspace }}/dist/assets
@@ -82,11 +77,10 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.ACCESS_TOKEN_ACTIONS }}
-          BRANCH: gh-pages
-          FOLDER: dist
-          CLEAN: true
-
+          folder: dist
+          # github_token: ${{ secrets.ACCESS_TOKEN_ACTIONS }}
+          # BRANCH: gh-pages
+          # CLEAN: true
 
       - uses: rokroskar/workflow-run-cleanup-action@v0.3.0
         env:
@@ -97,20 +91,21 @@ jobs:
 
       # - name: Deploy to GitHub Pages
       # uses: peaceiris/actions-gh-pages@v3
-      # ...部署所需的参数配置 
+      # ...部署所需的参数配置
 
       - name: Post Deploy Cleanup
         if: always()
-        run: rm -rf temp
+        run:
+          rm -rf temp
           # 删除临时目录
           # rm -rf temp
 
-          # 清理 git 配置 
+          # 清理 git 配置
           # git config --global --unset user.name
           # git config --global --unset user.email
           # git config --global --remove-section http.https://github.com/.extraheader
 
-          # 清理 git submodule 
+          # 清理 git submodule
           # git submodule foreach --recursive git config --local --unset-all 'core.sshCommand'
           # git submodule foreach --recursive git config --local --unset-all 'http.https://github.com/.extraheader'
 
