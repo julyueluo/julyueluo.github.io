@@ -83,7 +83,7 @@ jobs:
         with:
           github_token: ${{ secrets.ACCESS_TOKEN_ACTIONS }}
           BRANCH: gh-pages
-          FOLDER: docs/.vuepress/dist
+          FOLDER: dist
 
       - uses: rokroskar/workflow-run-cleanup-action@v0.3.0
         env:
