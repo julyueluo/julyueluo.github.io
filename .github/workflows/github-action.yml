@@ -15,10 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     
     - name: Cache node modules
-      uses: actions/cache@v2
+      uses: actions/cache@v3.3.2
       env:
         cache-name: cache-node-modules
       with:
@@ -42,7 +42,7 @@ jobs:
       run: npm run build
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: dist-files
         path: dist
@@ -62,13 +62,13 @@ jobs:
     
     steps:
     
-      - uses: actions/checkout@v3
-        
+      - uses: actions/checkout@v4
+
       - name: cd github.workspace 
         run: cd ${{ github.workspace }} 
 
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with: 
           name: dist-files
           path: dist
@@ -80,7 +80,7 @@ jobs:
         run: ls ${{ github.workspace }}/dist/assets
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4.4.3
         with:
           github_token: ${{ secrets.ACCESS_TOKEN_ACTIONS }}
           BRANCH: gh-pages

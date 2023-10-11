@@ -15,9 +15,9 @@ import HelloWorld from './components/HelloWorld.vue'
 
   <main>
     <div>action</div>
-    <div>
+    <div class="banner">
       <img alt="Vue logo" class="logo" src="./assets/master-albrecht-voss-homepage-banner2.jpg" width="125"
-        height="125" />
+        height="125"  />
       <h2>长歌行</h2>
       <p>汉乐府〔两汉〕</p>
       <p>青青园中葵，朝露待日晞。</p>
@@ -54,6 +54,11 @@ header {
     display: flex;
     place-items: flex-start;
     flex-wrap: wrap;
+  }
+}
+.banner{
+  img{
+    width: 100%;
   }
 }
 </style>
