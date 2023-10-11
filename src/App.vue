@@ -14,6 +14,7 @@ import HelloWorld from './components/HelloWorld.vue'
   </header>
 
   <main>
+    <div>action</div>
     <div>
       <img alt="Vue logo" class="logo" src="./assets/master-albrecht-voss-homepage-banner2.jpg" width="125"
         height="125" />
