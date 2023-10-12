@@ -10,7 +10,7 @@
   <!-- </header> -->
   
   <main>
-    <div>welcome to arya-homes</div>
+    <div>welcome to arya-homes!</div>
     <div class="banner">
       <!-- <img alt="Vue logo" class="logo" src="./assets/master-albrecht-voss-homepage-banner.jpg" width="125" height="125" /> -->
       <h2>长歌行</h2>
